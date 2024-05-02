@@ -1,6 +1,7 @@
 package org.sang.foodorderingweb.controller;
 
 import org.sang.foodorderingweb.model.User;
+import org.sang.foodorderingweb.service.UserService;
 import org.sang.foodorderingweb.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-	private final UserServiceImp userService;
+	private final UserService userService;
 
 	@Autowired
-	public UserController(UserServiceImp userService) {
+	public UserController(UserService userService) {
 		this.userService = userService;
 	}
 

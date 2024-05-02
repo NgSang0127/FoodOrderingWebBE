@@ -3,6 +3,7 @@ package org.sang.foodorderingweb.dto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.util.List;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
