@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.sang.foodorderingweb.dto.RestaurantDTO;
@@ -21,6 +22,7 @@ import org.sang.foodorderingweb.dto.RestaurantDTO;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -14,7 +14,7 @@ public interface RestaurantService {
 	void deleteRestaurant(Long restaurantId) throws Exception;
 	List<Restaurant> getAllRestaurants();
 	List<Restaurant> searchRestaurant(String keyword);
-	Restaurant findByRestaurantById(Long restaurantId) throws Exception;//in ra ngoại lệ nếu không có gì được tìm thấy
+	Restaurant findRestaurantById(Long restaurantId) throws Exception;//in ra ngoại lệ nếu không có gì được tìm thấy
 	Restaurant getRestaurantByUserId(Long userId) throws Exception;
 	RestaurantDTO addToFavorites(Long restaurantId,User user) throws Exception;
 	Restaurant updateRestaurantStatus(Long id)throws Exception;

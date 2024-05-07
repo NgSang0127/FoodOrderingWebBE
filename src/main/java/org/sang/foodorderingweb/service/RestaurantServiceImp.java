@@ -52,7 +52,7 @@ public class RestaurantServiceImp implements RestaurantService{
 
 	@Override
 	public Restaurant updateRestaurant(Long restaurantId, CreateRestaurantRequest updatedRestaurant) throws Exception {
-		Restaurant restaurant=findByRestaurantById(restaurantId);
+		Restaurant restaurant=findRestaurantById(restaurantId);
 		if(restaurant.getCuisineType() != null){
 			restaurant.setCuisineType(updatedRestaurant.getCuisineType());
 		}
@@ -67,7 +67,7 @@ public class RestaurantServiceImp implements RestaurantService{
 
 	@Override
 	public void deleteRestaurant(Long restaurantId) throws Exception {
-		Restaurant restaurant=findByRestaurantById(restaurantId);
+		Restaurant restaurant=findRestaurantById(restaurantId);
 		restaurantRepo.delete(restaurant);
 	}
 
@@ -82,7 +82,7 @@ public class RestaurantServiceImp implements RestaurantService{
 	}
 
 	@Override
-	public Restaurant findByRestaurantById(Long restaurantId) throws Exception {
+	public Restaurant findRestaurantById(Long restaurantId) throws Exception {
 		Optional<Restaurant>opt=restaurantRepo.findById(restaurantId);
 		if(opt.isEmpty()){
 			throw new Exception("Restaurant not found with id :"+restaurantId);
@@ -101,7 +101,7 @@ public class RestaurantServiceImp implements RestaurantService{
 
 	@Override
 	public RestaurantDTO addToFavorites(Long restaurantId, User user) throws Exception {
-		Restaurant restaurant=findByRestaurantById(restaurantId);
+		Restaurant restaurant=findRestaurantById(restaurantId);
 		RestaurantDTO dto=new RestaurantDTO();
 		dto.setDescription(restaurant.getDescription());
 		dto.setImages(restaurant.getImages());
@@ -127,7 +127,7 @@ public class RestaurantServiceImp implements RestaurantService{
 
 	@Override
 	public Restaurant updateRestaurantStatus(Long id) throws Exception {
-		Restaurant restaurant =findByRestaurantById(id);
+		Restaurant restaurant =findRestaurantById(id);
 		restaurant.setOpen(!restaurant.isOpen());
 		return restaurantRepo.save(restaurant);
 	}
