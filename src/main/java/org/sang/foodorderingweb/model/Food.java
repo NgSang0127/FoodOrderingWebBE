@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Builder
 public class Food {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -31,7 +31,6 @@ public class Food {
 	private String description;
 
 	private Long price;
-
 
 	@ManyToOne
 	private Category foodCategory;
@@ -49,7 +48,7 @@ public class Food {
 	private boolean isSeasonal;
 
 	@ManyToMany
-	private List<IngredientsItem> ingredients= new ArrayList<>();
+	private List<IngredientsItem> ingredients = new ArrayList<>();
 
 	private Date creationDate;
 }

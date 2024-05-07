@@ -5,6 +5,7 @@ import org.sang.foodorderingweb.model.IngredientCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IngredientCategoryRepository extends JpaRepository<IngredientCategory,Long> {
-	List<IngredientCategory>findByRestaurantId(Long id);
+
+	List<IngredientCategory> findByRestaurantId(Long id);
 
 }

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class IngredientServiceImp implements IngredientsService{
+public class IngredientServiceImp implements IngredientsService {
 
 	private final IngredientCategoryRepository ingredientCategoryRepo;
 	private final IngredientItemRepository ingredientItemRepo;
@@ -25,23 +25,20 @@ public class IngredientServiceImp implements IngredientsService{
 		this.restaurantService = restaurantService;
 	}
 
-
-
-
 	@Override
 	public IngredientCategory createIngredientCategory(String name, Long restaurantId) throws Exception {
-		Restaurant restaurant=restaurantService.findRestaurantById(restaurantId);
-		IngredientCategory category=IngredientCategory.builder()
-				.restaurant(restaurant)
-				.name(name)
-				.build();
+		Restaurant restaurant = restaurantService.findRestaurantById(restaurantId);
+		IngredientCategory category = new IngredientCategory();
+		category.setRestaurant(restaurant);
+		category.setName(name);
+
 		return ingredientCategoryRepo.save(category);
 	}
 
 	@Override
 	public IngredientCategory findIngredientCategory(Long id) throws Exception {
-		Optional<IngredientCategory> optionalCategory=ingredientCategoryRepo.findById(id);
-		if(optionalCategory.isEmpty()){
+		Optional<IngredientCategory> optionalCategory = ingredientCategoryRepo.findById(id);
+		if (optionalCategory.isEmpty()) {
 			throw new Exception("Ingredient category not found ...");
 		}
 		return optionalCategory.get();
@@ -56,14 +53,13 @@ public class IngredientServiceImp implements IngredientsService{
 	@Override
 	public IngredientsItem createIngredientItem(Long restaurantId, String ingredientName, Long categoryId)
 			throws Exception {
-		Restaurant restaurant=restaurantService.findRestaurantById(restaurantId);
-		IngredientCategory category=findIngredientCategory(categoryId);
-		IngredientsItem item=IngredientsItem.builder()
-				.name(ingredientName)
-				.restaurant(restaurant)
-				.category(category)
-				.build();
-		IngredientsItem ingredientsItem=ingredientItemRepo.save(item);
+		Restaurant restaurant = restaurantService.findRestaurantById(restaurantId);
+		IngredientCategory category = findIngredientCategory(categoryId);
+		IngredientsItem item =  new IngredientsItem();
+		item.setName(ingredientName);
+		item.setCategory(category);
+		item.setRestaurant(restaurant);
+		IngredientsItem ingredientsItem = ingredientItemRepo.save(item);
 		category.getIngredients().add(ingredientsItem);
 		return ingredientsItem;
 	}
@@ -75,11 +71,11 @@ public class IngredientServiceImp implements IngredientsService{
 
 	@Override
 	public IngredientsItem updateStock(Long id) throws Exception {
-		Optional<IngredientsItem> optionalIngredientsItem=ingredientItemRepo.findById(id);
-		if(optionalIngredientsItem.isEmpty()){
+		Optional<IngredientsItem> optionalIngredientsItem = ingredientItemRepo.findById(id);
+		if (optionalIngredientsItem.isEmpty()) {
 			throw new Exception("Ingredient not found ...");
 		}
-		IngredientsItem ingredientsItem=optionalIngredientsItem.get();
+		IngredientsItem ingredientsItem = optionalIngredientsItem.get();
 		ingredientsItem.setStoke(!ingredientsItem.isStoke());
 		return ingredientItemRepo.save(ingredientsItem);
 	}

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/admin/ingredients")
 public class IngredientController {
+
 	private final IngredientsService ingredientService;
 
 	@Autowired
@@ -30,14 +31,15 @@ public class IngredientController {
 	@PostMapping("/category")
 	public ResponseEntity<IngredientCategory> createIngredientCategory(@RequestBody IngredientCategoryRequest req)
 			throws Exception {
-		IngredientCategory item=ingredientService.createIngredientCategory(req.getName(),req.getRestaurantId());
+		IngredientCategory item = ingredientService.createIngredientCategory(req.getName(), req.getRestaurantId());
 		return new ResponseEntity<>(item, HttpStatus.CREATED);
 	}
 
 	@PostMapping()
 	public ResponseEntity<IngredientsItem> createIngredientItem(@RequestBody IngredientItemRequest req)
 			throws Exception {
-		IngredientsItem item=ingredientService.createIngredientItem(req.getRestaurantId(), req.getName(),req.getCategoryId());
+		IngredientsItem item = ingredientService.createIngredientItem(req.getRestaurantId(), req.getName(),
+				req.getCategoryId());
 
 		return new ResponseEntity<>(item, HttpStatus.CREATED);
 	}
@@ -45,7 +47,7 @@ public class IngredientController {
 	@PutMapping("/{id}/stoke")
 	public ResponseEntity<IngredientsItem> updateIngredientStock(@PathVariable Long id)
 			throws Exception {
-		IngredientsItem item=ingredientService.updateStock(id);
+		IngredientsItem item = ingredientService.updateStock(id);
 
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
@@ -53,7 +55,7 @@ public class IngredientController {
 	@GetMapping("/restaurant/{id}")
 	public ResponseEntity<List<IngredientsItem>> getRestaurantIngredient(@PathVariable Long id)
 			throws Exception {
-		List<IngredientsItem> item=ingredientService.findRestaurantsIngredients(id);
+		List<IngredientsItem> item = ingredientService.findRestaurantsIngredients(id);
 
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
@@ -61,7 +63,7 @@ public class IngredientController {
 	@GetMapping("/restaurant/{id}/category")
 	public ResponseEntity<List<IngredientCategory>> getRestaurantIngredientCategory(@PathVariable Long id)
 			throws Exception {
-		List<IngredientCategory> item=ingredientService.findIngredientCategoryByRestaurantId(id);
+		List<IngredientCategory> item = ingredientService.findIngredientCategoryByRestaurantId(id);
 		return new ResponseEntity<>(item, HttpStatus.OK);
 	}
 

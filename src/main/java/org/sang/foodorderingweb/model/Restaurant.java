@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class Restaurant {
 
 	@Id
@@ -47,10 +47,10 @@ public class Restaurant {
 
 	private String openingHours;
 
-	@OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
 	//orphanRemoval =true nghĩa là khi tôi xóa một Order ra khỏi danh sách orders của một restaurant
 	//order đó sẽ bị xóa khỏi cơ sơ dữ liệu
-	private List<Order> orders=new ArrayList<>();
+	private List<Order> orders = new ArrayList<>();
 
 	@ElementCollection
 	@Column(length = 1000)
@@ -61,6 +61,6 @@ public class Restaurant {
 	private boolean open;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
-	private List<Food> foods=new ArrayList<>();
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private List<Food> foods = new ArrayList<>();
 }

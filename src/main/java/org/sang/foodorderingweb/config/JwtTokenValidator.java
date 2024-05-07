@@ -15,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -32,12 +31,12 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 				SecretKey key = Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 				Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 
-				String email=String.valueOf(claims.get("email"));
-				String authorities=String.valueOf(claims.get("authorities"));
+				String email = String.valueOf(claims.get("email"));
+				String authorities = String.valueOf(claims.get("authorities"));
 				//authorities=ROLE_CUSTOMER,ROLE_ADMIN
 				//tách chuỗi này theo dấu phẩy
-				List<GrantedAuthority>auth= AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
-				Authentication authentication=new UsernamePasswordAuthenticationToken(email,null,auth);
+				List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
+				Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, auth);
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 
 

@@ -12,7 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FoodServiceImp implements FoodService{
+public class FoodServiceImp implements FoodService {
+
 	private final FoodRepository foodRepo;
 
 	@Autowired
@@ -22,25 +23,24 @@ public class FoodServiceImp implements FoodService{
 
 	@Override
 	public Food createFood(CreateFoodRequest req, Category category, Restaurant restaurant) {
-		Food food=Food.builder()
-				.foodCategory(category)
-				.restaurant(restaurant)
-				.description(req.getDescription())
-				.images(req.getImages())
-				.name(req.getName())
-				.price(req.getPrice())
-				.ingredients(req.getIngredients())
-				.isSeasonal(req.isSeasional())
-				.isVegetarian(req.isVegetarian())
-				.build();
-		Food savedFood=foodRepo.save(food);
+		Food food = new Food();
+		food.setFoodCategory(category);
+		food.setRestaurant(restaurant);
+		food.setDescription(req.getDescription());
+		food.setImages(req.getImages());
+		food.setName(req.getName());
+		food.setPrice(req.getPrice());
+		food.setIngredients(req.getIngredients());
+		food.setSeasonal(req.isSeasional());
+		food.setVegetarian(req.isVegetarian());
+		Food savedFood = foodRepo.save(food);
 		restaurant.getFoods().add(savedFood);
 		return savedFood;
 	}
 
 	@Override
 	public void deleteFood(Long foodId) throws Exception {
-		Food food=findFoodById(foodId);
+		Food food = findFoodById(foodId);
 		food.setRestaurant(null);
 		foodRepo.save(food);
 
@@ -49,43 +49,46 @@ public class FoodServiceImp implements FoodService{
 	@Override
 	public List<Food> getRestaurantsFood(Long restaurantId, boolean isVegetarian, boolean isNonveg, boolean isSeasonal,
 			String foodCategory) {
-		List<Food>foods=foodRepo.findByRestaurantId(restaurantId);
-		if(isVegetarian){
-			foods=filterByVegetarian(foods,isVegetarian);
-		};
-		if(isNonveg){
-			foods=filterByNonveg(foods,isNonveg);
+		List<Food> foods = foodRepo.findByRestaurantId(restaurantId);
+		if (isVegetarian) {
+			foods = filterByVegetarian(foods, isVegetarian);
 		}
-		if(isSeasonal){
-			foods=filterBySeasonal(foods,isSeasonal);
+		;
+		if (isNonveg) {
+			foods = filterByNonveg(foods, isNonveg);
 		}
-		if(foodCategory !=null && !foodCategory.isEmpty()){
-			foods=filterByCategory(foods,foodCategory);
+		if (isSeasonal) {
+			foods = filterBySeasonal(foods, isSeasonal);
+		}
+		if (foodCategory != null && !foodCategory.isEmpty()) {
+			foods = filterByCategory(foods, foodCategory);
 		}
 		return foods;
 	}
 
-
 	private List<Food> filterByVegetarian(List<Food> foods, boolean isVegetarian) {
 		return foods.stream()
-				.filter(food -> food.isVegetarian() ==isVegetarian)
+				.filter(food -> food.isVegetarian() == isVegetarian)
 				.collect(Collectors.toList());
 
 	}
+
 	private List<Food> filterByNonveg(List<Food> foods, boolean isNonveg) {
 		return foods.stream()
-				.filter(food -> food.isVegetarian() ==false)
+				.filter(food -> food.isVegetarian() == false)
 				.collect(Collectors.toList());
 	}
+
 	private List<Food> filterBySeasonal(List<Food> foods, boolean isSeasonal) {
 		return foods.stream()
-				.filter(food -> food.isVegetarian() ==isSeasonal)
+				.filter(food -> food.isVegetarian() == isSeasonal)
 				.collect(Collectors.toList());
 	}
+
 	private List<Food> filterByCategory(List<Food> foods, String foodCategory) {
 		return foods.stream()
 				.filter(food -> {
-					if(food.getFoodCategory() != null){
+					if (food.getFoodCategory() != null) {
 						return food.getFoodCategory().getName().equals(foodCategory);
 					}
 					return false;
@@ -99,8 +102,8 @@ public class FoodServiceImp implements FoodService{
 
 	@Override
 	public Food findFoodById(Long foodId) throws Exception {
-		Optional<Food> optionalFood=foodRepo.findById(foodId);
-		if(optionalFood.isEmpty()){
+		Optional<Food> optionalFood = foodRepo.findById(foodId);
+		if (optionalFood.isEmpty()) {
 			throw new Exception("Food not exist ...");
 		}
 		return optionalFood.get();
@@ -108,7 +111,7 @@ public class FoodServiceImp implements FoodService{
 
 	@Override
 	public Food updateAvailabilityStatus(Long id) throws Exception {
-		Food food=findFoodById(id);
+		Food food = findFoodById(id);
 		food.setAvailable(!food.isAvailable());
 		return foodRepo.save(food);
 	}

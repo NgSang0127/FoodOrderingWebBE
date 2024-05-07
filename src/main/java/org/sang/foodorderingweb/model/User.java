@@ -22,8 +22,9 @@ import org.sang.foodorderingweb.dto.RestaurantDTO;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -35,15 +36,15 @@ public class User {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
-	private USER_ROLE role=USER_ROLE.ROLE_CUSTOMER;
+	private USER_ROLE role = USER_ROLE.ROLE_CUSTOMER;
 
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
-	private List<Order> orders=new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+	private List<Order> orders = new ArrayList<>();
 
 	@ElementCollection
-	private List<RestaurantDTO>favorites=new ArrayList<>();
+	private List<RestaurantDTO> favorites = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL)//when user delete ,all address will be delete
-	private List<Address> addresses=new ArrayList<>();
+	private List<Address> addresses = new ArrayList<>();
 }

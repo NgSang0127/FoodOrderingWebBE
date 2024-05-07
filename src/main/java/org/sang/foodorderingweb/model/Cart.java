@@ -18,8 +18,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+
 public class Cart {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -29,6 +30,6 @@ public class Cart {
 
 	private Long total;
 
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<CartItem> items=new ArrayList<>();
+	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CartItem> items = new ArrayList<>();
 }

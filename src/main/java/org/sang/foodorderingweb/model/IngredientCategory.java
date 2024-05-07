@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Builder
 public class IngredientCategory {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -31,6 +31,6 @@ public class IngredientCategory {
 	@ManyToOne
 	private Restaurant restaurant;
 
-	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
-	private List<IngredientsItem> ingredients=new ArrayList<>();
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	private List<IngredientsItem> ingredients = new ArrayList<>();
 }

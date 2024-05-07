@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryServiceImp implements CategoryService{
+public class CategoryServiceImp implements CategoryService {
 
 	private final RestaurantService restaurantService;
 	private final CategoryRepository categoryRepo;
@@ -22,8 +22,8 @@ public class CategoryServiceImp implements CategoryService{
 
 	@Override
 	public Category createCategory(String name, Long userId) throws Exception {
-		Restaurant restaurant=restaurantService.getRestaurantByUserId(userId);
-		Category category=Category.builder()
+		Restaurant restaurant = restaurantService.getRestaurantByUserId(userId);
+		Category category = Category.builder()
 				.name(name)
 				.restaurant(restaurant)
 				.build();
@@ -32,15 +32,15 @@ public class CategoryServiceImp implements CategoryService{
 
 	@Override
 	public List<Category> findCategoryByRestaurantId(Long userId) throws Exception {
-		Restaurant restaurant=restaurantService.getRestaurantByUserId(userId);
+		Restaurant restaurant = restaurantService.getRestaurantByUserId(userId);
 
 		return categoryRepo.findByRestaurantId(restaurant.getId());
 	}
 
 	@Override
 	public Category findCategoryById(Long id) throws Exception {
-		Optional<Category> optionalCategory=categoryRepo.findById(id);
-		if(optionalCategory.isEmpty()){
+		Optional<Category> optionalCategory = categoryRepo.findById(id);
+		if (optionalCategory.isEmpty()) {
 			throw new Exception("Category not found");
 		}
 		return optionalCategory.get();

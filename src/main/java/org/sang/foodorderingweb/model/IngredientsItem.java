@@ -15,8 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Builder
+
 public class IngredientsItem {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -30,6 +31,6 @@ public class IngredientsItem {
 	@ManyToOne
 	private Restaurant restaurant;
 
-	private boolean isStoke=true;
+	private boolean isStoke = true;
 
 }

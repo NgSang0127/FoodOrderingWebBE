@@ -8,6 +8,7 @@ import org.sang.foodorderingweb.model.User;
 @Data
 @Builder
 public class AuthResponse {
+
 	private String jwt;
 	private String message;
 	private USER_ROLE role;

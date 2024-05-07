@@ -4,7 +4,8 @@ import java.util.List;
 import org.sang.foodorderingweb.model.Category;
 
 public interface CategoryService {
-	Category createCategory(String name,Long userId) throws Exception;
+
+	Category createCategory(String name, Long userId) throws Exception;
 
 	List<Category> findCategoryByRestaurantId(Long id) throws Exception;
 

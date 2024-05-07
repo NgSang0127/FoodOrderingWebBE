@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ContactInformation {
+
 	private String email;
 
 	private String mobile;

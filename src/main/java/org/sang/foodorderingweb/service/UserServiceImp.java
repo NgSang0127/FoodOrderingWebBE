@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
+
 	private final UserRepository userRepo;
 	private final JwtProvider jwtProvider;
 
@@ -17,19 +18,17 @@ public class UserServiceImp implements UserService{
 		this.jwtProvider = jwtProvider;
 	}
 
-
-
 	@Override
 	public User findUserByJwtToken(String jwt) throws Exception {
-		String email=jwtProvider.getEmailFromJwtToken(jwt);
-		User user=findUserByEmail(email);
+		String email = jwtProvider.getEmailFromJwtToken(jwt);
+		User user = findUserByEmail(email);
 		return user;
 	}
 
 	@Override
 	public User findUserByEmail(String email) throws Exception {
-		User user=userRepo.findByEmail(email);
-		if(user==null){
+		User user = userRepo.findByEmail(email);
+		if (user == null) {
 			throw new Exception("User not found");
 		}
 		return user;

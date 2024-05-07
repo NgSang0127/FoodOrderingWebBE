@@ -10,6 +10,7 @@ import org.sang.foodorderingweb.model.ContactInformation;
 @Data
 @Builder
 public class CreateRestaurantRequest {
+
 	private Long id;
 	private String name;
 	private String description;
