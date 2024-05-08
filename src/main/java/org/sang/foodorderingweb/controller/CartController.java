@@ -2,9 +2,11 @@ package org.sang.foodorderingweb.controller;
 
 import org.sang.foodorderingweb.model.Cart;
 import org.sang.foodorderingweb.model.CartItem;
+import org.sang.foodorderingweb.model.User;
 import org.sang.foodorderingweb.request.AddCartItemRequest;
 import org.sang.foodorderingweb.request.UpdateCartItemRequest;
 import org.sang.foodorderingweb.service.CartService;
+import org.sang.foodorderingweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class CartController {
 	private final CartService cartService;
+	private final UserService userService;
 
 	@Autowired
-	public CartController(CartService cartService) {
+	public CartController(CartService cartService,UserService userService) {
 		this.cartService = cartService;
+		this.userService=userService;
 	}
 
 	@PutMapping("/cart/add")
@@ -51,13 +55,15 @@ public class CartController {
 	@PutMapping("/cart/clear")
 	public ResponseEntity<Cart> clearCart(
 			@RequestHeader("Authorization") String jwt) throws Exception {
-		Cart cart=cartService.cleanCart(jwt);
+		User user=userService.findUserByJwtToken(jwt);
+		Cart cart=cartService.cleanCart(user.getId());
 		return new ResponseEntity<>(cart, HttpStatus.OK);
 	}
 
 	@GetMapping("/cart")
 	public  ResponseEntity<Cart> findUserCart(@RequestHeader("Authorization") String jwt) throws Exception {
-		Cart cart=cartService.cleanCart(jwt);
+		User user=userService.findUserByJwtToken(jwt);
+		Cart cart=cartService.cleanCart(user.getId());
 		return new ResponseEntity<>(cart, HttpStatus.OK);
 	}
 

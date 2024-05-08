@@ -50,5 +50,5 @@ public class Order {
 
 	private int totalItem;
 
-	private float totalPrice;
+	private Long totalPrice;
 }

@@ -7,7 +7,6 @@ import org.sang.foodorderingweb.model.Food;
 import org.sang.foodorderingweb.model.User;
 import org.sang.foodorderingweb.repository.CartItemRepository;
 import org.sang.foodorderingweb.repository.CartRepository;
-import org.sang.foodorderingweb.repository.FoodRepository;
 import org.sang.foodorderingweb.request.AddCartItemRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -103,14 +102,16 @@ public class CartServiceImp implements CartService{
 	}
 
 	@Override
-	public Cart findCartByUserId(String jwt) throws Exception {
-		User user=userService.findUserByJwtToken(jwt);
-		return cartRepo.findByCustomerId(user.getId());
+	public Cart findCartByUserId(Long userId) throws Exception {
+
+		Cart cart=cartRepo.findByCustomerId(userId);
+		cart.setTotal(calculateCartTotals(cart));
+		return cart;
 	}
 
 	@Override
-	public Cart cleanCart(String jwt) throws Exception {
-		Cart cart=findCartByUserId(jwt);
+	public Cart cleanCart(Long userId) throws Exception {
+		Cart cart=findCartByUserId(userId);
 		cart.getItems().clear();
 		return cartRepo.save(cart);
 	}
