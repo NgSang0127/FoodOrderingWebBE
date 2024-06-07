@@ -11,6 +11,7 @@ import org.sang.foodorderingweb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -43,7 +44,7 @@ public class AdminFoodController {
 		return new ResponseEntity<>(food, HttpStatus.CREATED);
 	}
 
-	@PostMapping("/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<MessageResponse> deleteFood(@PathVariable Long id,
 			@RequestHeader("Authorization") String jwt) throws Exception {
 		User user=userService.findUserByJwtToken(jwt);

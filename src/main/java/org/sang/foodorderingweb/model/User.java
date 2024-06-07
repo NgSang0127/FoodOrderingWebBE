@@ -45,6 +45,6 @@ public class User {
 	@ElementCollection
 	private List<RestaurantDTO> favorites = new ArrayList<>();
 
-	@OneToMany(cascade = CascadeType.ALL)//when user delete ,all address will be delete
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)//when user delete ,all address will be delete
 	private List<Address> addresses = new ArrayList<>();
 }
