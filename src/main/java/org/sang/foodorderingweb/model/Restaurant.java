@@ -47,6 +47,7 @@ public class Restaurant {
 
 	private String openingHours;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
 	//orphanRemoval =true nghĩa là khi tôi xóa một Order ra khỏi danh sách orders của một restaurant
 	//order đó sẽ bị xóa khỏi cơ sơ dữ liệu

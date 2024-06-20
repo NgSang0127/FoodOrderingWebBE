@@ -1,5 +1,6 @@
 package org.sang.foodorderingweb.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,8 +32,10 @@ public class FoodServiceImp implements FoodService {
 		food.setName(req.getName());
 		food.setPrice(req.getPrice());
 		food.setIngredients(req.getIngredients());
-		food.setSeasonal(req.isSeasional());
+		food.setSeasonal(req.isSeasonal());
+		food.setCreationDate(new Date());
 		food.setVegetarian(req.isVegetarian());
+
 		Food savedFood = foodRepo.save(food);
 		restaurant.getFoods().add(savedFood);
 		return savedFood;

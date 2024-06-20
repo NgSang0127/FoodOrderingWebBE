@@ -43,15 +43,14 @@ public class CartServiceImp implements CartService{
 				return updateCartItemQuantity(cartItem.getId(),newQuantity);
 			}
 		}
-		CartItem newItems=CartItem.builder()
-				.food(food)
-				.cart(cart)
-				.quantity(req.getQuantity())
-				.ingredients(req.getIngredients())
-				.totalPrice(req.getQuantity()*food.getPrice())
-				.build();
+		CartItem newCartItem=new CartItem();
+		newCartItem.setFood(food);
+		newCartItem.setCart(cart);
+		newCartItem.setQuantity(req.getQuantity());
+		newCartItem.setIngredients(req.getIngredients());
+		newCartItem.setTotalPrice(req.getQuantity() * food.getPrice());
 
-		CartItem savedCartItem=cartItemRepo.save(newItems);
+		CartItem savedCartItem=cartItemRepo.save(newCartItem);
 		cart.getItems().add(savedCartItem);
 
 		return savedCartItem;
@@ -85,7 +84,7 @@ public class CartServiceImp implements CartService{
 
 	@Override
 	public Long calculateCartTotals(Cart cart) throws Exception {
-		Long total =0L;
+		long total =0L;
 		for(CartItem item : cart.getItems()){
 			total +=item.getFood().getPrice() * item.getQuantity();
 		}
@@ -103,7 +102,6 @@ public class CartServiceImp implements CartService{
 
 	@Override
 	public Cart findCartByUserId(Long userId) throws Exception {
-
 		Cart cart=cartRepo.findByCustomerId(userId);
 		cart.setTotal(calculateCartTotals(cart));
 		return cart;

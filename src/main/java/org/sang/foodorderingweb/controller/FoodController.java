@@ -47,6 +47,7 @@ public class FoodController {
 			@RequestParam(required = false) String food_Category,//require false tùy chọn ko bắt buộc trong request http
 			@PathVariable Long restaurantId,
 			@RequestHeader("Authorization") String jwt) throws Exception {
+
 		User user = userService.findUserByJwtToken(jwt);
 		List<Food> foods = foodService.getRestaurantsFood(restaurantId, vegetarian, nonVeg, seasonal, food_Category);
 		return new ResponseEntity<>(foods, HttpStatus.OK);

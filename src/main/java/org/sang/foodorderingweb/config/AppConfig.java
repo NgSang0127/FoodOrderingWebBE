@@ -42,7 +42,7 @@ public class AppConfig {
 				CorsConfiguration cfg = new CorsConfiguration();
 				cfg.setAllowedOrigins(List.of(
 						"http://localhost:3000"
-				));// Xác định danh sách các nguồn (origins) mà các yêu cầu CORS được chấp nhận
+				));
 				cfg.setAllowedMethods(Collections.singletonList(
 						"*"));//Xác định danh sách các phương thức HTTP được phép truy cập từ các nguồn khác nhau
 				cfg.setAllowCredentials(

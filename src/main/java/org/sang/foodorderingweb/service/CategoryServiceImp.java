@@ -22,19 +22,18 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public Category createCategory(String name, Long userId) throws Exception {
-		Restaurant restaurant = restaurantService.getRestaurantByUserId(userId);
-		Category category = Category.builder()
-				.name(name)
-				.restaurant(restaurant)
-				.build();
+		Restaurant restaurant = restaurantService.findRestaurantById(userId);
+
+		Category category=new Category();
+		category.setName(name);
+		category.setRestaurant(restaurant);
 		return categoryRepo.save(category);
 	}
 
 	@Override
-	public List<Category> findCategoryByRestaurantId(Long userId) throws Exception {
-		Restaurant restaurant = restaurantService.getRestaurantByUserId(userId);
+	public List<Category> findCategoryByRestaurantId(Long id) throws Exception {
 
-		return categoryRepo.findByRestaurantId(restaurant.getId());
+		return categoryRepo.findByRestaurantId(id);
 	}
 
 	@Override
